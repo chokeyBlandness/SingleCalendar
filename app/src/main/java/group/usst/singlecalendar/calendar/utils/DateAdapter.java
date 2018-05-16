@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import group.usst.singlecalendar.R;
@@ -15,14 +16,16 @@ import group.usst.singlecalendar.R;
 public class DateAdapter extends BaseAdapter {
 
     Context context;
+    Calendar calendar;
     Transactions transactions;
 
     /**
      * constructor function with a context parameter
      * @param context the context would be injected
      */
-    public DateAdapter(Context context) {
+    public DateAdapter(Context context, Calendar calendar) {
         this.context = context;
+        this.calendar = calendar;
     }
 
     /**
@@ -32,7 +35,7 @@ public class DateAdapter extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return DateUtil.getCurrentMonthLastDay()+DateUtil.getFirstDayOfMonth()-1;
+        return DateUtil.getCalendarMonthLastDay(calendar)+DateUtil.getFirstDayOfMonth(calendar)-1;
     }
 
     /**
@@ -45,10 +48,10 @@ public class DateAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position) {
         int i;
-        if (position < DateUtil.getFirstDayOfMonth() - 1) {
+        if (position < DateUtil.getFirstDayOfMonth(calendar) - 1) {
             i = 0;
         } else {
-            i = position + 1 - (DateUtil.getFirstDayOfMonth() - 1);
+            i = position + 1 - (DateUtil.getFirstDayOfMonth(calendar) - 1);
         }
         return i;
     }
@@ -88,11 +91,13 @@ public class DateAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.component_layout,null);
         }
 
-        Date date = new Date(DateUtil.getCurrentYear(),DateUtil.getCurrentMonth(), (Integer) getItem(position));
+        Date date = new Date(DateUtil.getCalendarYear(calendar),
+                DateUtil.getCalendarMonth(calendar),
+                (Integer) getItem(position));
 
         TextView textView = convertView.findViewById(R.id.textComponent);
         ImageView imageView = convertView.findViewById(R.id.iconImageVIew);
-        if (position < DateUtil.getFirstDayOfMonth() - 1) {
+        if (position < DateUtil.getFirstDayOfMonth(calendar) - 1) {
             textView.setVisibility(View.INVISIBLE);
             imageView.setVisibility(View.GONE);
         } else {

@@ -3,14 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/yearAndMonthTextView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="2018-5"
-        android:padding="10dp"
-        android:gravity="center"
-        android:background="#38df35"/>
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/yearAndMonthTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:text="2018-5"
+            android:gravity="center"
+            android:padding="10dp"
+            android:background="#38df35"/>
+        <ImageView
+            android:id="@+id/preMonthButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_select"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <ImageView
+            android:id="@+id/nextMonthButton"
+            android:src="@mipmap/icon_select"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
     <GridView
         android:id="@+id/weekTextGridView"
         android:layout_width="match_parent"
